@@ -6,8 +6,6 @@ path ="PieDB/keys"
 
 <h3><u>Functions of data store</u></h3>
 
-<h3>Functions of data store</h3>
-
 <strong>create(key, value, timetolive)</strong>  -- value must be a JSON Object -- if timetolive not defined it will persist in db.
     creates a file with the specified key and value of the JSON
 
