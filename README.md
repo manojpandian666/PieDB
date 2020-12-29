@@ -20,19 +20,19 @@ path ="PieDB/keys"
 import PieDB as db
 
 
-x = {"Name":"Manoj","Desgination":"Software Engineer"}
-y = {"Name":"Manoj Pandian","Desgination":"Software Engineer"}
+x = {"Name":"Manoj","Desgination":"Software Engineer"} # JSON Object
+y = {"Name":"Manoj Pandian","Desgination":"Software Engineer"} # JSON Object
 
-db.create("key002", x, 2)
+db.create("key002", x, 2) # Creates a file with that key --- create(key, value, timetolive)
 
 db.create("key003", x)
 
 db.create("key004",x)
 
-x = db.read("key004")
+x = db.read("key004") # Returns the JSON Object
 print(x)
 
-db.update("key004", y)
+db.update("key004", y) # Updates the value with that key
 
-db.delete("key003")
+db.delete("key003") # Deletes the value with that key
 ```
