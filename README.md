@@ -2,18 +2,18 @@
 
 path ="PieDB/keys"
 
-<span style="color: green"><strong>create(key,value,timetolive)</strong></span> -- value must be a JSON Object -- if timetolive not defined it will persist in db.
+<strong>create(key,value,timetolive)</strong> -- value must be a JSON Object -- if timetolive not defined it will persist in db.
     creates a file with the specified key and value of the JSON
 
-<span style="color: blue"><strong>read(key)</strong></span>
+<strong>read(key)</strong>
     read a file with that key and returns as JSON object
 
-<span style="color: black"><strong>update(key,new_vaue)</strong></span> -- value must be a JSON Object
+<strong>update(key,new_vaue)</strong> -- value must be a JSON Object
     updates the file with new value
 
-<span style="color: yellow"><strong>delete(key)</strong></span>
+<strong>delete(key)</strong>
     deletes the file with that key
-```
+```python
 import PieDB as db
 
 
