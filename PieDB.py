@@ -2,6 +2,9 @@
 import os
 import json
 import time
+import threading
+
+lock = threading.Lock()
 #Specify your directory here
 path = "PieDB/keys"
 
@@ -89,81 +92,84 @@ class HighLengthValue(DatabaseError):
 def ttl(key):
     os.remove("{}/{}.json".format(path,key))
 
+
 #create key function
 def create(key, value, timetolive=""):
-	if key is None:
-		raise NoKeyError
-	else:
-		pass
-	if value is None:
-		raise NoValueError
-	else:
-		pass
-	if type(value) is dict:
+	with lock:
+		if key is None:
+				raise NoKeyError
+		else:
 			pass
-	else:
-			print("The Value must be JSON Object.")
-	if len(key) > 32:
-    		raise HighLengthKey
-	else:
-    		pass
-	if len(value) > 16000:
-    		raise HighLengthValue
-	else:
+		if value is None:
+			raise NoValueError
+		else:
 			pass
-	try:
-		if isinstance(key, str):
-			try:
+		if type(value) is dict:
+				pass
+		else:
+				print("The Value must be JSON Object.")
+		if len(key) > 32:
+				raise HighLengthKey
+		else:
+				pass
+		if len(value) > 16000:
+				raise HighLengthValue
+		else:
+				pass
+		try:
+			if isinstance(key, str):
 				try:
-					with open("{}/{}.json".format(path,key), "x") as file:
-						try:
-							json.dump(value,file)
-						finally:
-							file.close()
-						print('Key "{}" with value "{}" has been created'.format(key, value))
-				except FileNotFoundError:
-					if FileNotFoundError:
-						try:
-							os.makedirs("{}/".format(path))
-						except FileExistsError:
-							pass
+					try:
 						with open("{}/{}.json".format(path,key), "x") as file:
 							try:
 								json.dump(value,file)
 							finally:
 								file.close()
 							print('Key "{}" with value "{}" has been created'.format(key, value))
-			except FileExistsError:
-				if FileExistsError:
-					raise KeyExistsError('The key named "{}" has already been found in the database'.format(key))
+					except FileNotFoundError:
+						if FileNotFoundError:
+							try:
+								os.makedirs("{}/".format(path))
+							except FileExistsError:
+								pass
+							with open("{}/{}.json".format(path,key), "x") as file:
+								try:
+									json.dump(value,file)
+								finally:
+									file.close()
+								print('Key "{}" with value "{}" has been created'.format(key, value))
+				except FileExistsError:
+					if FileExistsError:
+						raise KeyExistsError('The key named "{}" has already been found in the database'.format(key))
+			else:
+				raise KeyNameError
+		except TypeError:
+			if TypeError:
+				raise NoInputError
+		if timetolive is None:
+				return
 		else:
-			raise KeyNameError
-	except TypeError:
-		if TypeError:
-			raise NoInputError
-	if timetolive is None:
-    		return
-	else:
-			try:
-				time.sleep(timetolive)
-				ttl(key)
-			except:
-				pass
+				try:
+					time.sleep(timetolive)
+					ttl(key)
+				except:
+					pass		
 
 #read key function
 def read(key):
-	if isinstance(key, str):
-		try:
-			with open("{}/{}.json".format(path,key), "r") as file:
-				try:
-					y = json.load(file)
-					return y
-				finally:
-					file.close()
-		except FileNotFoundError:
-			raise KeyNotFoundError('No such key named "{}" has been found in the database'.format(key))
-	else:
-		raise KeyNameError
+    with lock:
+					if isinstance(key, str):
+							try:
+								with open("{}/{}.json".format(path,key), "r") as file:
+									try:
+										y = json.load(file)
+										return y
+									finally:
+										file.close()
+							except FileNotFoundError:
+								raise KeyNotFoundError('No such key named "{}" has been found in the database'.format(key))
+					else:
+						raise KeyNameError
 
 
 #update value function
@@ -227,12 +233,13 @@ def update(key, new_value):
 		
 #delete key function
 def delete(key):
-	if isinstance(key, str):
-		try:
-			os.remove("{}/{}.json".format(path,key))
-			print(key, "has been deleted from the database.")
-		except FileNotFoundError:
-			if FileNotFoundError:
-				raise KeyNotFoundError('No such key named "{}" has been found in the database'.format(key))
-	else:
-		raise KeyNameError
+	with lock:
+		if isinstance(key,str):
+			try:
+				os.remove("{}/{}.json".format(path,key))
+				print(key, "has been deleted from the database.")
+			except FileNotFoundError:
+				if FileNotFoundError:
+					raise KeyNotFoundError('No such key named "{}" has been found in the database'.format(key))
+		else:
+			raise KeyNameError	
