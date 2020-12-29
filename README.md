@@ -1,8 +1,10 @@
 <h3>Specify your path in path variable as String</h3>
 
+
 path ="PieDB/keys"
 
-<strong>create(key,value,timetolive)</strong> -- value must be a JSON Object -- if timetolive not defined it will persist in db.
+
+<strong>create(key,value,timetolive)</strong>  -- value must be a JSON Object -- if timetolive not defined it will persist in db.
     creates a file with the specified key and value of the JSON
 
 <strong>read(key)</strong>
@@ -13,6 +15,7 @@ path ="PieDB/keys"
 
 <strong>delete(key)</strong>
     deletes the file with that key
+
 
 ```python
 import PieDB as db
