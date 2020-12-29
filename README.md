@@ -13,6 +13,7 @@ path ="PieDB/keys"
 
 <strong>delete(key)</strong>
     deletes the file with that key
+
 ```python
 import PieDB as db
 
