@@ -1,6 +1,6 @@
 <h1>PieDB - A simple file based Key Value data store.</h1>
 
-<h3><u>Specify your path in path variable as String</u></h3>
+<h3><u>Specify your storage path in path variable as String</u></h3>
 path ="PieDB/keys"
 
 
